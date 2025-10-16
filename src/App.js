@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import AppNavigator from './navigation/AppNavigator';
 import { SupabaseProvider } from './context/SupabaseContext';
 import { initializeAdMob } from './services/adMobConfig';
