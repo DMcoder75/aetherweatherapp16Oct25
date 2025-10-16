@@ -1,0 +1,116 @@
+name: Build Android APK & AAB
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      create_release:
+        description: 'Create a GitHub release'
+        required: false
+        default: 'false'
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: 'gradle'
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Install npm dependencies
+      run: npm ci
+
+    - name: Make Gradlew executable
+      run: chmod +x android/gradlew
+
+    - name: Clean Gradle build
+      run: |
+        cd android
+        ./gradlew clean --no-daemon
+
+    - name: Build Android APK (Debug)
+      run: |
+        cd android
+        ./gradlew assembleDebug --no-daemon --stacktrace
+
+    - name: Build Android APK (Release)
+      run: |
+        cd android
+        ./gradlew assembleRelease --no-daemon --stacktrace
+
+    - name: Build Android AAB (Release)
+      run: |
+        cd android
+        ./gradlew bundleRelease --no-daemon --stacktrace
+
+    - name: Upload Debug APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug-apk
+        path: android/app/build/outputs/apk/debug/app-debug.apk
+        retention-days: 30
+
+    - name: Upload Release APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-apk
+        path: android/app/build/outputs/apk/release/app-release.apk
+        retention-days: 90
+
+    - name: Upload Release AAB
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-aab
+        path: android/app/build/outputs/bundle/release/app-release.aab
+        retention-days: 90
+
+    - name: Create Release
+      if: github.event.inputs.create_release == 'true' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ github.run_number }}
+        name: Release v${{ github.run_number }}
+        body: |
+          ## Aether Weather Mobile - Release Build
+          
+          ### Downloads:
+          - **APK (Release)**: Install directly on Android devices
+          - **AAB (Release)**: For Google Play Store upload
+          
+          ### What's Included:
+          - ✅ Location-based weather forecasting
+          - ✅ Google AdMob integration (test ads)
+          - ✅ In-app purchase subscription ($10 ad-free)
+          - ✅ Responsive UI for all screen sizes
+          - ✅ Professional splash screen
+          
+          ### Installation:
+          1. Download the APK file
+          2. Enable "Install from Unknown Sources" on your Android device
+          3. Install the APK
+          4. Grant location permissions when prompted
+        files: |
+          android/app/build/outputs/apk/release/app-release.apk
+          android/app/build/outputs/bundle/release/app-release.aab
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
