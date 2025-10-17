@@ -100,6 +100,9 @@ android {
             keyPassword 'android'
         }
     }
+    buildFeatures {
+        prefab true
+    }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
