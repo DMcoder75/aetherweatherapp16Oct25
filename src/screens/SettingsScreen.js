@@ -10,68 +10,38 @@ import {
 } from 'react-native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useSubscription } from '../hooks/useSubscription';
 
 const SettingsScreen = () => {
-  const { isPremium, purchaseSubscription, restorePurchases, loading } = useSubscription();
+  const isPremium = false; // Temporarily disable premium features
+  const loading = false;
+  const handlePurchase = () => Alert.alert('Feature Disabled', 'Subscription feature is temporarily disabled.');
+  const handleRestore = () => Alert.alert('Feature Disabled', 'Restore Purchase feature is temporarily disabled.');
 
-  const handlePurchase = async () => {
-    try {
-      const success = await purchaseSubscription();
-      if (success) {
-        Alert.alert('Success', 'Thank you for subscribing! Ads have been removed.');
-      }
-    } catch (error) {
-      Alert.alert('Error', 'Failed to complete purchase. Please try again.');
-    }
-  };
-
-  const handleRestore = async () => {
-    try {
-      const success = await restorePurchases();
-      if (success) {
-        Alert.alert('Success', 'Your purchase has been restored!');
-      } else {
-        Alert.alert('No Purchase Found', 'No previous purchase found to restore.');
-      }
-    } catch (error) {
-      Alert.alert('Error', 'Failed to restore purchases. Please try again.');
-    }
-  };
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Subscription</Text>
         
-        {isPremium ? (
-          <View style={styles.premiumCard}>
-            <Text style={styles.premiumTitle}>✨ Premium Active</Text>
-            <Text style={styles.premiumText}>
-              You are enjoying an ad-free experience. Thank you for your support!
-            </Text>
-          </View>
-        ) : (
-          <View style={styles.subscriptionCard}>
-            <Text style={styles.subscriptionTitle}>Remove Ads</Text>
-            <Text style={styles.subscriptionPrice}>$10.00</Text>
-            <Text style={styles.subscriptionDescription}>
-              Enjoy an ad-free experience with premium features and support the development of Aether Weather.
-            </Text>
-            
-            <TouchableOpacity
-              style={styles.purchaseButton}
-              onPress={handlePurchase}
-              disabled={loading}
-            >
-              {loading ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
-                <Text style={styles.purchaseButtonText}>Subscribe Now</Text>
-              )}
-            </TouchableOpacity>
-          </View>
-        )}
+        <View style={styles.subscriptionCard}>
+          <Text style={styles.subscriptionTitle}>Remove Ads</Text>
+          <Text style={styles.subscriptionPrice}>$10.00</Text>
+          <Text style={styles.subscriptionDescription}>
+            Enjoy an ad-free experience with premium features and support the development of Aether Weather.
+          </Text>
+          
+          <TouchableOpacity
+            style={styles.purchaseButton}
+            onPress={handlePurchase}
+            disabled={loading}
+          >
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.purchaseButtonText}>Subscribe Now (Disabled)</Text>
+            )}
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity
           style={styles.restoreButton}
