@@ -20,13 +20,3 @@ buildscript {
 
 apply plugin: "com.facebook.react.rootproject"
 
-// Fix for react-native-worklets-core Hermes linking issue
-if (project.ext.has("react") && project.ext.react.get("enableHermes")) {
-    def hermesPath = project.file("node_modules/hermes-engine")
-    if (hermesPath.exists()) {
-        project.ext.hermesEngine = [
-            'path': hermesPath.absolutePath,
-            'version': '0.0.1' // Dummy version, path is what matters
-        ]
-    }
-}

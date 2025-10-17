@@ -108,6 +108,10 @@ android {
 }
 
 dependencies {
+    // Workaround for react-native-worklets-core Hermes linking issue
+    if (project.ext.has("react") && project.ext.react.get("enableHermes")) {
+        implementation project(':hermes-engine')
+    }
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 
