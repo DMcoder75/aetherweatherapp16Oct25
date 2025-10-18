@@ -33,7 +33,7 @@ jobs:
         java-version: '17'
 
     - name: Set up Android NDK and CMake
-      uses: android-actions/setup-ndk@v2
+      uses: android-actions/setup-android-ndk@v2
       with:
         ndk: '26.1.10909125'
         cmake: '3.22.1'
