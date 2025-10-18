@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",
@@ -17,6 +18,7 @@
     "@react-navigation/stack": "^7.4.10",
     "@supabase/supabase-js": "^2.75.0",
     "date-fns": "^4.1.0",
+    "patch-package": "^8.0.1",
     "react": "19.1.1",
     "react-native": "0.82.0",
     "react-native-gesture-handler": "^2.28.0",
@@ -27,9 +29,9 @@
     "react-native-screens": "^4.17.1",
     "react-native-size-matters": "^0.4.2",
     "react-native-splash-screen": "^3.3.0",
-"react-native-worklets": "^0.6.1"
-	  },
-	  "devDependencies": {
+    "react-native-worklets": "^0.6.1"
+  },
+  "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
     "@babel/runtime": "^7.25.0",
