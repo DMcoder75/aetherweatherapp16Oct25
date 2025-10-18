@@ -36,7 +36,7 @@ jobs:
       uses: nttld/setup-ndk@v1
       with:
         ndk-version: 'r26b'
-        cmake-version: '3.22.1'
+
 
 
     - name: Setup Android SDK
