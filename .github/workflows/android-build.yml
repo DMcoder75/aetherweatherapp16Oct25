@@ -35,6 +35,9 @@ jobs:
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
+      with:
+        ndk: 23.1.7779620 # A common stable NDK version
+        cmake: 3.18.1 # A common stable CMake version
 
     - name: Install npm dependencies
       run: npm ci
