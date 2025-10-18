@@ -31,7 +31,13 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
-        cache: 'gradle'
+
+    - name: Set up Android NDK and CMake
+      uses: android-actions/setup-ndk@v2
+      with:
+        ndk: '26.1.10909125'
+        cmake: '3.22.1'
+
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
