@@ -49,7 +49,7 @@ jobs:
       run: ls -F node_modules/
 
     - name: Debug - Check react-native/android directory
-      run: ls -F node_modules/react-native/android
+      run: ls -F node_modules/react-native/ReactAndroid
 
     - name: Run patch-package explicitly
       run: npx patch-package
