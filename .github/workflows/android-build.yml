@@ -51,22 +51,22 @@ jobs:
     - name: Clean Gradle build
       run: |
         cd android
-        ./gradlew clean --no-daemon
+        ./gradlew clean --no-daemon --no-build-cache
 
     - name: Build Android APK (Debug)
       run: |
         cd android
-        ./gradlew assembleDebug --no-daemon --stacktrace
+        ./gradlew assembleDebug --no-daemon --stacktrace --no-build-cache
 
     - name: Build Android APK (Release)
       run: |
         cd android
-        ./gradlew assembleRelease --no-daemon --stacktrace
+        ./gradlew assembleRelease --no-daemon --stacktrace --no-build-cache
 
     - name: Build Android AAB (Release)
       run: |
         cd android
-        ./gradlew bundleRelease --no-daemon --stacktrace
+        ./gradlew bundleRelease --no-daemon --stacktrace --no-build-cache
 
     - name: Upload Debug APK
       uses: actions/upload-artifact@v4
