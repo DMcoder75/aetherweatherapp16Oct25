@@ -45,6 +45,12 @@ jobs:
     - name: Install npm dependencies
       run: npm ci
 
+    - name: Debug - List node_modules contents
+      run: ls -F node_modules/
+
+    - name: Debug - Check react-native/android directory
+      run: ls -F node_modules/react-native/android
+
     - name: Run patch-package explicitly
       run: npx patch-package
 
