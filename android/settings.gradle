@@ -4,5 +4,5 @@ extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autoli
 rootProject.name = 'AetherWeatherMobile'
 include ":app"
 include ":react-native"
-project(":react-native").projectDir = new File(rootProject.projectDir, "../node_modules/react-native/android")
+project(":react-native").projectDir = new File(rootProject.projectDir, "../node_modules/react-native/ReactAndroid")
 includeBuild('../node_modules/@react-native/gradle-plugin')
