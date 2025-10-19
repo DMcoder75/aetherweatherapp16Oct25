@@ -8,7 +8,7 @@ apply plugin: "com.facebook.react"
  */
 react {
     /* Folders */
-    //   The root of your project, i.e. where "package.json" lives. Default is '../..'
+    //   The root of your project, i.e. where "package.json" lives. Default is '../../'
     // root = file("../../")
     //   The folder where the react-native NPM package is. Default is ../../node_modules/react-native
     reactNativeDir = file("../../node_modules/react-native")
@@ -75,7 +75,7 @@ def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
-    compileSdk 34
+   compileSdk rootProject.ext.compileSdkVersion
 
     namespace "com.aetherweathermobile"
     defaultConfig {
@@ -134,3 +134,4 @@ dependencies {
         implementation jscFlavor
     }
 }
+
