@@ -45,9 +45,13 @@ jobs:
     - name: Install npm dependencies
       run: npm ci
 
+    - name: Run patch-package explicitly
+      run: npx patch-package
+
     - name: Make Gradlew executable
       run: chmod +x android/gradlew
 
+    
     - name: Clean Gradle build
       run: |
         cd android
